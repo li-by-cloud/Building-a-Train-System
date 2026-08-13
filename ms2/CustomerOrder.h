@@ -1,0 +1,40 @@
+#ifndef SENECA_CUSTOMERORDER_H
+#define SENECA_CUSTOMERORDER_H
+#include <string>
+#include "Utilities.h"
+#include "Station.h"
+
+using std::string;
+namespace seneca {
+	struct Item
+	{
+		std::string m_itemName;
+		size_t m_serialNumber{ 0 };
+		bool m_isFilled{ false };
+
+		Item(const std::string& src) : m_itemName(src) {};
+	};
+	class CustomerOrder {
+
+		string m_name;
+		string m_product;
+		size_t m_cntItem;
+		Item** m_lstItem;
+		static size_t m_widthField;
+
+	public:
+		CustomerOrder();
+		CustomerOrder(string& recoed);
+		CustomerOrder(const CustomerOrder& other);
+		CustomerOrder(const CustomerOrder&& other) noexcept;
+		CustomerOrder& operator=(const CustomerOrder&& other) noexcept;
+		~CustomerOrder();
+		bool isOrderFilled() const;
+		bool isItemFilled(const std::string& itemName) const;
+		void fillItem(Station& station, std::ostream& os);
+		void display(std::ostream& os) const;
+	};
+
+
+}
+#endif // !SENECA_CUSTOMERORDER_H
